@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+.SideBar {
+    width: 251px;
+    display: block;
+    background-color: rgb(50, 65, 87);
+    .at-menu  {
+        background-color: rgb(50, 65, 87);
+        color: rgb(191, 203, 217);
+        border-right: 0px;
+    }
+
+    .sidebar-item {
+        color: rgb(191, 203, 217);
+    }
+}

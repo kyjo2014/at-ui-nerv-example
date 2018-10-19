@@ -1,0 +1,40 @@
+@charset "UTF-8";
+
+.BaseForm {
+    .form-container {
+        padding: 30px;
+        background: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+    .form-item {
+        display: flex;
+        align-items: center;
+        min-height: 32px;
+        margin-bottom: 18px;
+        &__desc {
+            width: 80px;
+            line-height: 32px;
+            padding-right: 12px;
+            font-size: 14px;
+            text-align: right;
+        }
+
+        &__input {
+            width: 488px;
+        }
+
+        &__btn {
+            margin-left: 80px;
+        }
+    }
+    
+    .btn-submit {
+
+    }
+
+    .btn-cancel {
+        margin-left: 10px;
+    }
+    
+}

@@ -1,0 +1,25 @@
+@charset "UTF-8";
+
+.Home {
+  .main {
+    display: flex;
+  }
+  .content-box {
+    width: 100%;
+    -webkit-transition: left 0.3s ease-in-out;
+    -o-transition: left 0.3s ease-in-out;
+    transition: left 0.3s ease-in-out;
+    background: #f0f0f0;
+  }
+  .main {
+      height: calc(100% - 70px);
+  }
+  .content {
+    width: auto;
+    height: calc(100% - 30px ) ;
+    padding: 10px;
+    overflow-y: scroll;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+}
