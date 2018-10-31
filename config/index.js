@@ -30,7 +30,10 @@ const config = {
         'react-dom': 'nervjs',
         '@view': path.resolve(__dirname, '../src/view/'),
         '@component': path.resolve(__dirname, '../src/component/'),
-        '@static': path.resolve(__dirname, '../static/')
+        '@static': path.resolve(__dirname, '../static/'),
+        '@reducer': path.resolve(__dirname, '../src/reducers/'),
+        '@action': path.resolve(__dirname, '../src/actions/')
+
       }
     }
   }

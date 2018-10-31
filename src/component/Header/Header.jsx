@@ -7,6 +7,9 @@ import Nerv from 'nervjs'
 import './Header.scss'
 
 import { NavLink } from 'react-router-dom'
+import {connect} from 'nerv-redux'
+
+import {toggleSidebar} from '@action/index'
 
 import { Tooltip, Dropdown, Badge, Button } from '@o2team/at-ui-nerv'
 
@@ -20,11 +23,16 @@ class Header extends Nerv.Component {
 
   }
 
+  collapseSideBar = () => {
+    const {dispatch} = this.props
+    dispatch(toggleSidebar())
+  }
+
   render () {
     const { fullscreen, message, username = 'admin' } = this.state
     return (
       <div className='Header'>
-        <div className='collapse-btn' onClick={this.collapseChage}>
+        <div className='collapse-btn' onClick={this.collapseSideBar}>
           <i className='icon icon-menu' />
         </div>
         <div className='logo'>后台管理系统</div>
@@ -92,4 +100,8 @@ class Header extends Nerv.Component {
   }
 }
 
-export default Header
+const mapStateToProps = (state) => {
+  return state
+}
+
+export default connect(mapStateToProps)(Header)

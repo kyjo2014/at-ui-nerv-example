@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.DragList {
+  .drag {
+    &-container {
+      padding: 30px;
+      background: #fff;
+      border: 1px solid #ddd;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+    }
+    &-box {
+      display: flex;
+      &__item {
+        -webkit-box-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        max-width: 330px;
+        min-width: 300px;
+        background-color: #eff1f5;
+        margin-right: 16px;
+        border-radius: 6px;
+        border: 1px #e1e4e8 solid;
+      }
+    }
+  }
+  .plugins-tips {
+    padding: 20px 10px;
+    margin-bottom: 20px;
+    background: #eef1f6;
+  }
+}

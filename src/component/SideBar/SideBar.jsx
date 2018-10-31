@@ -6,8 +6,9 @@
 import Nerv from 'nervjs'
 import './SideBar.scss'
 import classnames from 'classnames'
+import { connect } from 'nerv-redux'
 
-import { Menu } from '@o2team/at-ui-nerv'
+import { Menu } from '../../../at.nerv.min.js'
 
 import { NavLink } from 'react-router-dom'
 
@@ -17,31 +18,31 @@ class SideBar extends Nerv.Component {
     this.state = {
       items: [
         {
-          icon: 'el-icon-lx-home',
+          icon: 'icon-home',
           index: 'dashboard',
           title: '系统首页'
         },
         {
-          icon: 'el-icon-lx-cascades',
+          icon: 'icon-grid',
           index: 'table',
           title: '基础表格'
         },
         {
-          icon: 'el-icon-lx-copy',
+          icon: 'icon-copy',
           index: 'tabs',
           title: 'tab选项卡'
         },
         {
-          icon: 'el-icon-lx-calendar',
+          icon: 'icon-calendar',
           index: 'form',
           title: '表单相关',
           subs: [
             {
-              index: 'form',
+              index: 'basicform',
               title: '基本表单'
             },
             {
-              index: '3-2',
+              index: 'thirdlist',
               title: '三级菜单',
               subs: [
                 {
@@ -61,22 +62,22 @@ class SideBar extends Nerv.Component {
           ]
         },
         {
-          icon: 'el-icon-lx-emoji',
+          icon: 'icon-sunrise',
           index: 'icon',
           title: '自定义图标'
         },
         {
-          icon: 'el-icon-lx-favor',
+          icon: 'icon-bar-chart',
           index: 'charts',
-          title: 'schart图表'
+          title: 'chart图表'
         },
         {
-          icon: 'el-icon-rank',
+          icon: 'icon-bar-chart-2',
           index: 'drag',
           title: '拖拽列表'
         },
         {
-          icon: 'el-icon-lx-warn',
+          icon: 'icon-alert-triangle',
           index: '6',
           title: '错误处理',
           subs: [
@@ -91,10 +92,23 @@ class SideBar extends Nerv.Component {
           ]
         }
       ],
-      activeName4: '1'
+      activeName: '',
+      collapse: false
     }
   }
 
+  componentWillReceiveProps (nextProps) {
+    const { collapse: collapseO } = this.props
+    const { collapse: collapseN } = nextProps
+    if (collapseO !== collapseN) {
+      this.setState({
+        activeName: '',
+        collapse: collapseN
+      }, () => {
+        console.log(this.state)
+      })
+    }
+  }
   _menuBuilder = () => {
     const { items } = this.state
 
@@ -102,43 +116,58 @@ class SideBar extends Nerv.Component {
       const { icon, title, index, subs } = item
       if (!subs) {
         return (
-          <Menu.Item name={index}>
-            <NavLink className={classnames('sidebar-item')} to={`./${index}`}>
+          <Menu.Item className={classnames('sidebar-item')} name={index}>
+            <NavLink
+              replace
+              className={classnames('sidebar-item__herf')}
+              to={`/home/${index}`}
+            >
               <i className={`icon ${icon}`} />
-              {title}
+              <span>{title}</span>
             </NavLink>
           </Menu.Item>
         )
       } else {
         return (
           <Menu.Sub
+            className={classnames({
+              'sidebar-sub': true
+            })}
             name={index}
             title={
               <span>
                 <i className={`icon ${icon}`} />
-                {title}
+                <span>{title}</span>
               </span>
             }
+            isOpen={!this.state.collapse}
           >
             {subs.map(sub => {
               const { index, title, subs } = sub
               if (subs) {
                 return (
                   <Menu.Sub
+                    className={classnames('sidebar-sub__sub')}
                     name={index}
-                    mode='inlineCollapsed'
                     title={
                       <span>
                         <i className={`icon ${icon}`} />
-                        {title}
+                        <span>{title}</span>
                       </span>
                     }
+                    isOpen={this.state.collapse}
                   >
                     {subs.map(sub => {
                       const { title, index } = sub
                       return (
                         <Menu.Item name={index}>
-                          <NavLink className={classnames('sidebar-item')} to={`./${index}`}>{title}</NavLink>
+                          <NavLink
+                            replace
+                            className={classnames('sidebar-item')}
+                            to={`/home/${index}`}
+                          >
+                            {title}
+                          </NavLink>
                         </Menu.Item>
                       )
                     })}
@@ -148,7 +177,13 @@ class SideBar extends Nerv.Component {
 
               return (
                 <Menu.Item name={index}>
-                  <NavLink className={classnames('sidebar-item')} to={`./${index}`}>{title}</NavLink>
+                  <NavLink
+                    replace
+                    className={classnames('sidebar-item')}
+                    to={`/home/${index}`}
+                  >
+                    {title}
+                  </NavLink>
                 </Menu.Item>
               )
             })}
@@ -157,17 +192,28 @@ class SideBar extends Nerv.Component {
       }
     })
   }
+
+  tempInputHandle = (evt) => {
+    const val = evt.target.value
+    this.setState({
+      activeName: val
+    })
+  }
   render () {
+    const { activeName, collapse } = this.state
     return (
       <div className='SideBar'>
+        <input type='text' name='' id='' onInput={this.tempInputHandle} />
         <Menu
-          activeName={this.state.activeName4}
+          className={classnames('sidebar', { 'sidebar-collapse': collapse })}
+          activeName={activeName}
           onSelect={name => {
             this.setState({
-              activeName4: name
+              activeName: name
             })
           }}
-          inlineCollapsed
+          mode={collapse ? 'vertical' : 'inline'}
+          // inlineCollapsed={collapse}
         >
           {this._menuBuilder()}
         </Menu>
@@ -176,4 +222,8 @@ class SideBar extends Nerv.Component {
   }
 }
 
-export default SideBar
+const mapStateToProps = state => {
+  return state['sideBarReducer']
+}
+
+export default connect(mapStateToProps)(SideBar)

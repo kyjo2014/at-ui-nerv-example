@@ -8,7 +8,7 @@
   .grid-content {
     display: flex;
     align-items: center;
-    height: 100px;
+    min-height: 100px;
   }
 
   .grid-cont-right {
@@ -97,7 +97,7 @@
   }
 
   .todoList {
-    height: 393px;
+    height: 400px;
   }
 
   .mgb20 {
@@ -110,5 +110,28 @@
 
   .flex {
     display: flex;
+  }
+
+  .progress {
+    &-vue {
+      .at-progress-bar__inner {
+        background: rgb(66, 185, 131);
+      }
+    }
+    &-javascript {
+      .at-progress-bar__inner {
+        background: rgb(241, 224, 90);
+      }
+    }
+    &-css {
+      .at-progress-bar__inner {
+        background: #409eff;
+      }
+    }
+    &-html {
+      .at-progress-bar__inner {
+        background: rgb(245, 108, 108);
+      }
+    }
   }
 }

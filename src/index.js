@@ -5,7 +5,13 @@
  */
 
 import Nerv from 'nervjs'
-import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import {
+  HashRouter as Router,
+  Switch,
+  Route
+} from 'react-router-dom'
+
+import {Provider} from 'nerv-redux'
 
 import './global.scss'
 
@@ -14,6 +20,9 @@ import 'at-ui-style'
 import '../static/css/color-dark.css'
 
 import Home from '@view/Home/Home'
+import configureStore from './store/store'
+
+const store = configureStore()
 
 class App extends Nerv.Component {
   constructor () {
@@ -35,7 +44,9 @@ class App extends Nerv.Component {
 
 Nerv.render(
   <Router>
-    <App />
+    <Provider store={store} >
+      <App />
+    </Provider>
   </Router>,
   document.getElementById('J_container')
 )

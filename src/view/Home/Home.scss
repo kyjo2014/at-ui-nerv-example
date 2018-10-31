@@ -6,6 +6,7 @@
   }
   .content-box {
     width: 100%;
+    overflow: auto;
     -webkit-transition: left 0.3s ease-in-out;
     -o-transition: left 0.3s ease-in-out;
     transition: left 0.3s ease-in-out;
@@ -15,7 +16,7 @@
       height: calc(100% - 70px);
   }
   .content {
-    width: auto;
+    min-width: 1010px;
     height: calc(100% - 30px ) ;
     padding: 10px;
     overflow-y: scroll;

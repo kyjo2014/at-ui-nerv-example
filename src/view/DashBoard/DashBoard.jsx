@@ -9,12 +9,112 @@ import './DashBoard.scss'
 import classnames from 'classnames'
 import { Card, Progress, Table, Button } from '@o2team/at-ui-nerv'
 
+import ReactEcharts from 'echarts-for-react'
+
 class DashBoard extends Nerv.Component {
   constructor () {
     super(...arguments)
     this.state = {}
   }
 
+  getOption = () => {
+    return {
+      title: {
+        text: '堆叠区域图'
+      },
+      tooltip: {
+        trigger: 'axis'
+      },
+      legend: {
+        data: ['邮件营销', '联盟广告', '视频广告']
+      },
+      toolbox: {
+        feature: {
+          saveAsImage: {}
+        }
+      },
+      grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+      },
+      xAxis: [
+        {
+          type: 'category',
+          boundaryGap: false,
+          data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日']
+        }
+      ],
+      yAxis: [
+        {
+          type: 'value'
+        }
+      ],
+      series: [
+        {
+          name: '邮件营销',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
+          data: [120, 132, 101, 134, 90, 230, 210]
+        },
+        {
+          name: '联盟广告',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
+          data: [220, 182, 191, 234, 290, 330, 310]
+        },
+        {
+          name: '视频广告',
+          type: 'line',
+          stack: '总量',
+          areaStyle: {normal: {}},
+          data: [150, 232, 201, 154, 190, 330, 410]
+        }
+      ]
+    }
+  };
+
+  getOption2 = () => ({
+    title: {
+      text: '某站点用户访问来源',
+      subtext: '纯属虚构',
+      x: 'center'
+    },
+    tooltip: {
+      trigger: 'item',
+      formatter: '{a} <br/>{b} : {c} ({d}%)'
+    },
+    legend: {
+      orient: 'vertical',
+      left: 'left',
+      data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+    },
+    series: [
+      {
+        name: '访问来源',
+        type: 'pie',
+        radius: '55%',
+        center: ['50%', '60%'],
+        data: [
+          {value: 335, name: '直接访问'},
+          {value: 310, name: '邮件营销'},
+          {value: 234, name: '联盟广告'},
+          {value: 135, name: '视频广告'},
+          {value: 1548, name: '搜索引擎'}
+        ],
+        itemStyle: {
+          emphasis: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: 'rgba(0, 0, 0, 0.5)'
+          }
+        }
+      }
+    ]
+  })
   render () {
     const { name = 'admin', role = '超级管理员' } = this.props
     return (
@@ -44,13 +144,13 @@ class DashBoard extends Nerv.Component {
               </div>
               <div>
                 Vue
-                <Progress percent='71.3' color='#42b983' />
+                <Progress className={classnames('progress', 'progress-vue')} percent='71.3' />
                 JavaScript
-                <Progress percent='24.1' color='#f1e05a' />
+                <Progress className={classnames('progress', 'progress-javascript')} percent='24.1' color='#f1e05a' />
                 CSS
-                <Progress percent='3.7' />
+                <Progress className={classnames('progress', 'progress-css')} percent='3.7' />
                 HTML
-                <Progress percent='0.9' color='#f56c6c' />
+                <Progress className={classnames('progress', 'progress-html')} percent='0.9' color='#f56c6c' />
               </div>
             </Card>
           </div>
@@ -140,14 +240,24 @@ class DashBoard extends Nerv.Component {
           </div>
         </div>
         <div className={classnames('row', 'at-row')}>
-          <div className={classnames('col-md-12')}>
+          <div className={classnames('col-xs-12', 'col-md-12')}>
             <Card>
-              <div className='grid-content grid-con-3'>Chart1</div>
+              <div className='grid-content grid-con-3'>
+                <ReactEcharts
+                  option={this.getOption()}
+                  style={{height: '350px', width: '100%'}}
+                  className='react_for_echarts' />
+              </div>
             </Card>
           </div>
-          <div className={classnames('col-md-12')}>
+          <div className={classnames('col-xs-12', 'col-md-12')}>
             <Card>
-              <div className='grid-content grid-con-3'>Chart1</div>
+              <div className='grid-content grid-con-3'>
+                <ReactEcharts
+                  option={this.getOption2()}
+                  style={{height: '350px', width: '100%'}}
+                  className='react_for_echarts' />
+              </div>
             </Card>
           </div>
         </div>

@@ -1,16 +1,55 @@
 @charset "UTF-8";
 
 .SideBar {
-    width: 251px;
-    display: block;
+  display: block;
+  background-color: rgb(50, 65, 87);
+  .at-menu {
     background-color: rgb(50, 65, 87);
-    .at-menu  {
-        background-color: rgb(50, 65, 87);
+    color: rgb(191, 203, 217);
+    border-right: 0px;
+  }
+
+  .sidebar {
+    .sidebar-item,
+    .sidebar-sub {
+      &__herf {
         color: rgb(191, 203, 217);
-        border-right: 0px;
+      }
+    }
+  }
+
+  .sidebar-collapse {
+    width: 80px !important;
+    .sidebar-item,
+    .sidebar-sub {
+      width: 80px;
+      &__herf {
+        color: rgb(191, 203, 217);
+      }
+      span {
+        display: inline-block;
+        max-width: 0;
+        white-space: nowrap;
+        overflow: hidden;
+      }
     }
 
-    .sidebar-item {
-        color: rgb(191, 203, 217);
+    .at-menu__submenu-title {
+      display: flex;
+      align-items: center;
     }
+
+    .sidebar-sub {
+      .at-dropdown-menu {
+        width: 200px;
+      }
+      &__sub {
+        width: 200px;
+        span {
+          display: inline;
+          max-width: 100%;
+        }
+      }
+    }
+  }
 }

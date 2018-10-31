@@ -12,6 +12,8 @@
   - [嵌入式菜单逻辑有问题]
   - 出现个多重嵌入式菜单层叠时会无法打开 - 解决 因为父 sub 的 mode 没有传给子
   - 出现个多重嵌入式菜单层叠时子嵌入菜单的开闭箭头不会动，层叠时没有缩进 -
+  - 侧边展示的时候来回移动会导致二级菜单快速闪动 - mouseLeave/enter事件增加throttle
+  - inlineCollapsed 属性逻辑有问题会导致模式切换失败 -
 
 - table
   - Uncaught TypeError: Cannot read property 'querySelectorAll' of undefined - 貌似是因为字符串 ref 在新版 nerv 中已经废弃
@@ -39,6 +41,6 @@
 - TextArea
     - 需要把原生的参数也传递到text-area上
 
--
+- 
  
         

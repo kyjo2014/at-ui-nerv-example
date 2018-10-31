@@ -37,11 +37,11 @@ class BaseForm extends Nerv.Component {
             </div>
             <div className='form-item'>
               <label className={'form-item__desc'}>选择器</label>
-              <Select size='large' style='width: 100px'>
+              {/* <Select size='large' style='width: 100px'>
                 <Select.Option value='bbk'>步步高</Select.Option>
                 <Select.Option value='xtc'>小天才</Select.Option>
                 <Select.Option value='imoo'>imoo</Select.Option>
-              </Select>
+              </Select> */}
             </div>
             <div className='form-item'>
               <label className={'form-item__desc'} >选择开关</label>
@@ -73,7 +73,7 @@ class BaseForm extends Nerv.Component {
             </div>
             <div className='form-item' >
               <label className={'form-item__desc'}>文本框</label>
-              <Textarea rows='5' maxRows='5' onInput={() => {}} />
+              {/* <Textarea rows='5' maxRows='5' onInput={() => {}} /> */}
             </div>
             <div className={classnames('form-item', 'form-item__btn')} >
               <Button className={'btn-submit'} type='primary' onClick={this.onSubmit}>表单提交</Button>

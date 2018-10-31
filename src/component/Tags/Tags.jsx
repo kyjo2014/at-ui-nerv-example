@@ -6,6 +6,8 @@
 import Nerv from 'nervjs'
 import './Tags.scss'
 
+import classnames from 'classnames'
+
 import { NavLink } from 'react-router-dom'
 import { Tag, Dropdown } from '@o2team/at-ui-nerv'
 
@@ -13,12 +15,59 @@ class Tags extends Nerv.Component {
   constructor () {
     super(...arguments)
     this.state = {
+      items: [],
+      activeTagIdx: 0
+    }
+  }
+
+  componentDidMount () {
+    const {
+      history: {
+        location: { pathname }
+      }
+    } = this.props
+
+    this.setState({
       items: [
         {
-          title: 'hahahah',
-          path: 'http://www.baidu.com'
+          title: pathname,
+          path: pathname
         }
       ]
+    })
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const { items, activeTagIdx: activeTagIdxO } = this.state
+    const {
+      history: {
+        location: { pathname }
+      }
+    } = nextProps
+    let activeTagIdxN = activeTagIdxO
+
+    if (
+      items.some((item, idx) => {
+        if (item.path === pathname) {
+          activeTagIdxN = idx
+          return true
+        }
+        return false
+      })
+    ) {
+      this.setState({
+        activeTagIdx: activeTagIdxN
+      })
+    } else {
+      this.setState({
+        items: [].concat(items, [
+          {
+            title: pathname,
+            path: pathname
+          }
+        ]),
+        activeTagIdx: items.length
+      })
     }
   }
 
@@ -31,12 +80,14 @@ class Tags extends Nerv.Component {
   }
 
   _renderTags = () => {
-    const { items = [] } = this.state
+    const { items = [], activeTagIdx } = this.state
     return items.map((item, idx) => {
       const { title, path } = item
       return (
-        <li>
-          <Tag closable onClose={this.removeTag.bind(this, idx)}>
+        <li className='tag-wrap'>
+          <Tag className={classnames('tag', {
+            'tag-active': idx === activeTagIdx
+          })} closable onClose={this.removeTag.bind(this, idx)}>
             <NavLink to={path}>{title}</NavLink>
           </Tag>
         </li>
